@@ -1,92 +1,84 @@
 # Tiny Hot Corners for Windows 10
 
-In GNOME 3 whenever you move the mouse to the top left corner, GNOME switches to the activities view, it looks like this:
+### 简介
 
- ![Gnome Activities](https://www.gnome.org/wp-content/uploads/2016/03/window-selection-3.20-420x236.png)
+macOS上有一个很方便的功能：“触发角”。通过这个功能可以设置当鼠标移动到屏幕的四个角时的触发事件，例如触发启动屏幕保护程序等，显示桌面等功能。和我们习惯的热键相对应，macOS将其称之为“Hot Corners(热角)”。笔者接下来要介绍的软件**“[HotCorner](https://github.com/misterchaos/hotcorner/releases)"**就是用于让Windows系统拥有像macOS那样的触发角，实现下面动图展示的效果：
 
-Whenever I'm using Windows 10, I always forget that this doesn't work. Bleh.
+当鼠标移动到屏幕的左上角时，自动打开Windows的时间轴试图，实现快捷切换任务。
 
-I searched around for existing solutions, and wasn't happy with anything I could find.
+![](https://github.com/misterchaos/img/raw/master/image/hotcorner.gif)
 
-The options seem to be
+这个程序来源于一个国外大神（[Google](http://www.google.com/)的信息安全工程师）[Tavis Ormandy](https://github.com/taviso) 的一个小项目 [hotcorner](https://github.com/taviso/hotcorner)，他创作这个项目是因为习惯于一款Linux操作系统桌面GNOME 3，这款桌面可以在鼠标移动到左上角时触发任务视图。他发现每当自己使用Windows 10时，总是会忘记Windows中并没有这个功能，四处寻找替代软件都无法令他满意，因此自己用C语言手撸了一个小程序来实现这个功能。但这个小程序只有一个功能：屏幕左上角触发Windows时间轴视图。并且软件的安装，卸载都需要通过命令行或者手动实现，十分不方便。
 
- * Some ridiculous AutoHotKey monstrosity (?!?).
- * Massive Delphi application with 100MB of resources.
- * Some naive program that polls GetCursorPos() in a busy loop.
+笔者在原先的项目基础上做出了如下改动：
 
-None of these are what I want, I just want that GNOME 3 thing with absolute minimal overhead.
+1. 用屏幕的左下角来触发开始菜单
+2. 将软件打包成安装引导程序（安装包）
+3. 给软件添加图标
+4. 安装时可选择软件开机启动
+5. 编写中文文档
 
-This is a **very** minimal hotcorner app, written in C. You can adjust parameters, delays, bindings easily and recompile.
+下面一张动图演示了笔者添加的左下角触发开始菜单的功能
 
-Zero state is stored anywhere, no registry keys or configuration files.
+![](https://github.com/misterchaos/img/raw/master/image/hotcorner2.gif)
 
-- If you want to configure something, edit the code and recompile.
-- If you want to uninstall it, just delete it.
+### 软件功能
 
-## Instructions
+- 当鼠标移动至屏幕左上角时显示Windows 10时间轴视图
+- 当鼠标移动至屏幕右下角时显示Windows 开始菜单
 
-Change any of the parameters, compile, then install.
+### 下载
 
-A binary is available [here](https://github.com/taviso/hotcorner/releases) if you prefer.
+Github地址：[下载地址](https://github.com/misterchaos/hotcorner/releases)
 
-### Building
+码云地址：[下载地址](https://gitee.com/misterchaos/hotcorner/releases/v1.5)
 
-` > nmake`
+如果你不打算参与本软件开发，只需要下载`HotcornerInstaller.exe`这个安装程序即可<br>国内推荐使用码云地址进行下载，速度比较快，但如果你需要提交issue，请前往Github地址。
 
-### Installing
+### 安装
 
-`> copy hotcorner.exe "%USERPROFILE%\Start Menu\Programs\Startup"`
+从上述下载地址将`HotcornerInstaller.exe`下载下来之后，双击打开即可开始安装。
 
-(or `nmake install`)
+![image-20200615203603094](http://nextcloud.hellochaos.cn/index.php/s/T6iLYN2FiS5FoJ7/preview)
 
-### Uninstalling
+### 卸载
 
- `> del "%USERPROFILE%\Start Menu\Programs\Startup\hotcorner.exe"`
+找到软件的安装位置（默认是C:\Program Files (x86)\HotCorner），双击该文件夹下的`unins000.exe`即可完成卸载。在卸载之前请先停止软件运行（同时按下Ctrl+Alt+C）。
 
-(or `nmake uninstall`)
+### 使用
 
-If you don't have cl or nmake, they come with Visual Studio (or the Windows SDK, I think).
+软件安装完成之后会自动添加到开始菜单的应用列表中，在其中找到HotCorner，单击之后软件即可后台运行。如果你使用了如图所示的屏幕缩放，并且缩放比例不是100%时，则需要进行下面的配置
 
-Additionally, it is possible to build hotcorner on Linux using MinGW.
+![image-20200615204923679](http://nextcloud.hellochaos.cn/index.php/s/6fCqMDKWgPdixYZ/preview)
 
- `$ x86_64-w64-mingw32-windres version.rc -O coff -o version.res`
- `$ x86_64-w64-mingw32-gcc -O2 hotcorner.c version.res -o hotcorner.exe -Wl,-subsystem,windows`
+正常情况下，软件可以自动获取屏幕的高度，但是在系统使用屏幕缩放时，会导致软件获取到的不是屏幕的真实高度，因此你需要编辑软件安装路径（默认是C:\Program Files (x86)\HotCorner）下的`config.txt`文件，在这个文件中写入屏幕的真实高度，例如图中的屏幕真实高度为1080（无单位），然后重启软件。（`config.txt`中的默认值是0，表示自动获取屏幕高度。）
 
+> **在软件运行过程中同时按下Ctrl+Alt+C可以关闭程序**
 
-### Configuration
+### License
 
-All configuration requires modifying the parameters in `hotcorner.c` and recompiling.
+代码使用GPL3协议进行开源，如需使用代码请遵循CPL3协议相关规定。
 
-* `RECT kHotcorner` - The coordinates of the hot zone.
-* `INPUT kCornerInput[]` - Input sent on activation.
-* `DWORD kHotKeyModifiers` - Modifier Keys (shift, alt, ctrl, etc) you want to enable the hotkey function.
-* `DWORD kHotDelay` - How long the pointer must wait in the corner before being activated.
-
-## License
-
-GPL3
-
-## Authors
+### 作者
 
 * Tavis Ormandy [@taviso](https://github.com/taviso/) - Original Author
 * Ahmed Samy [@asamy](https://github.com/asamy) - HotKey support
+* Yuchao Huang [@misterchaos](https://github.com/misterchaos/) - Application Package
 
-## FAQ
+### FAQ
 
-* Q: I don't want to compile it, can't you just give me an exe? :(
-* A: Checkout the releases, [here](https://github.com/taviso/hotcorner/releases).
-
-
-* Q: Can you change a setting, and then compile it for me?
-* A: No.
+* Q: 屏幕左上角可以触发时间轴视图，但是屏幕右下角没有反应？
+* A: 你可能使用了屏幕缩放，查看[配置说明](#使用)
 
 
-* Q: This doesn't work with my Application/Configuration/Whatever!
-* A: File an issue, if it's feasible to workaround I'll try.
+* Q: 我想修改屏幕角触发的事件，怎么办？
+* A: 目前只能自己下载源代码进行修改，然后重新编译运行。
 
 
-* Q: How do I turn it off without rebooting?
-* A: You can use CTRL+ALT+C to completely shut down the application.
+* Q: 软件运行之后怎么关闭？
+* A: 在软件运行过程中同时按下Ctrl+Alt+C可以关闭程序
 
-* Q: Why doesn't it work if my current program is running as an Administrator?
-* A: [UIPI](https://en.wikipedia.org/wiki/User_Interface_Privilege_Isolation). I suppose you could "Run As Administrator" if it bothers you.
+
+* Q: 怎么让软件在开机时运行？
+* A: 在安装过程中可以选择`开机启动`，如果安装时没有选择，可以手动实现（方法自己百度即可）
+
