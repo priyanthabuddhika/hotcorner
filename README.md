@@ -2,7 +2,7 @@
 
 ### 简介
 
-macOS上有一个很方便的功能：“触发角”。通过这个功能可以设置当鼠标移动到屏幕的四个角时的触发事件，例如触发启动屏幕保护程序等，显示桌面等功能。和我们习惯的热键相对应，macOS将其称之为“Hot Corners(热角)”。笔者接下来要介绍的软件**“[HotCorner](https://github.com/misterchaos/hotcorner/releases)"**就是用于让Windows系统拥有像macOS那样的触发角，实现下面动图展示的效果：
+macOS上有一个很方便的功能：“触发角”。通过这个功能可以设置当鼠标移动到屏幕的四个角时的触发事件，例如触发启动屏幕保护程序等，显示桌面等功能。和我们习惯的热键相对应，macOS将其称之为“Hot Corners(热角)”。笔者接下来要介绍的软件“[**HotCorner**](https://github.com/misterchaos/hotcorner/releases)"就是用于让Windows系统拥有像macOS那样的触发角，实现下面动图展示的效果：
 
 当鼠标移动到屏幕的左上角时，自动打开Windows的时间轴试图，实现快捷切换任务。
 
