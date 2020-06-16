@@ -2,13 +2,12 @@
 
 ### 简介
 
-macOS上有一个很方便的功能：“触发角”。通过这个功能可以设置当鼠标移动到屏幕的四个角时的触发事件，例如触发启动屏幕保护程序等，显示桌面等功能。和我们习惯的热键相对应，macOS将其称之为“Hot Corners(热角)”。笔者接下来要介绍的软件**“[HotCorner](https://github.com/misterchaos/hotcorner/releases)"**就是用于让Windows系统拥有像macOS那样的触发角，实现下面动图展示的效果：
+macOS上有一个很方便的功能：“触发角”。通过这个功能可以设置当鼠标移动到屏幕的四个角时的触发事件，例如触发启动屏幕保护程序等，显示桌面等功能。和我们习惯的热键相对应，macOS将其称之为“Hot Corners(热角)”。笔者接下来要介绍的软件“[**HotCorner**](https://github.com/misterchaos/hotcorner/releases)"就是用于让Windows系统拥有像macOS那样的触发角，实现下面动图展示的效果：
 
 当鼠标移动到屏幕的左上角时，自动打开Windows的时间轴试图，实现快捷切换任务。
+![](https://img2020.cnblogs.com/blog/1654007/202006/1654007-20200615230050152-1026624222.gif)
 
-![](https://github.com/misterchaos/img/raw/master/image/hotcorner.gif)
-
-这个程序来源于一个国外大神（[Google](http://www.google.com/)的信息安全工程师）[Tavis Ormandy](https://github.com/taviso) 的一个小项目 [hotcorner](https://github.com/taviso/hotcorner)，他创作这个项目是因为习惯于一款Linux操作系统桌面GNOME 3，这款桌面可以在鼠标移动到左上角时触发任务视图。他发现每当自己使用Windows 10时，总是会忘记Windows中并没有这个功能，四处寻找替代软件都无法令他满意，因此自己用C语言手撸了一个小程序来实现这个功能。但这个小程序只有一个功能：屏幕左上角触发Windows时间轴视图。并且软件的安装，卸载都需要通过命令行或者手动实现，十分不方便。
+这个程序来源于一个国外大神（[Google](http://www.google.com/)的信息安全工程师）[Tavis Ormandy](https://github.com/taviso) 的一个小项目 [hotcorner](https://github.com/taviso/hotcorner)，他创作这个项目是因为习惯于一款Linux操作系统桌面：GNOME 3，这款桌面可以在鼠标移动到左上角时触发任务视图。他发现每当自己使用Windows 10时，总是会忘记Windows中并没有这个功能，四处寻找替代软件都无法令他满意，因此自己用C语言手撸了一个小程序来实现这个功能。但这个小程序只有一个功能：屏幕左上角触发Windows时间轴视图。并且软件的安装，卸载都需要通过命令行或者手动实现，十分不方便。
 
 笔者在原先的项目基础上做出了如下改动：
 
@@ -20,7 +19,8 @@ macOS上有一个很方便的功能：“触发角”。通过这个功能可以
 
 下面一张动图演示了笔者添加的左下角触发开始菜单的功能
 
-![](https://github.com/misterchaos/img/raw/master/image/hotcorner2.gif)
+![](https://img2020.cnblogs.com/blog/1654007/202006/1654007-20200615225727735-1550089543.gif)
+
 
 ### 软件功能
 
@@ -81,4 +81,3 @@ Github地址：[下载地址](https://github.com/misterchaos/hotcorner/releases)
 
 * Q: 怎么让软件在开机时运行？
 * A: 在安装过程中可以选择`开机启动`，如果安装时没有选择，可以手动实现（方法自己百度即可）
-
