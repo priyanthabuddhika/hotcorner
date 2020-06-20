@@ -35,8 +35,8 @@ To trigger the start menu in the lower left corner like this:
 
 ### Functions
 
-- Trigger the activities view in the upper left corner
-- Trigger the start menu in the lower left corner
+- Trigger the activities view with mouse in the upper left corner
+- Trigger the start menu with mouse in the lower left corner
 
 ### Download
 
@@ -92,3 +92,4 @@ The code is open source using GPL3 protocol. If you need to use the code, please
 
 * Q: How do I enable *run on startup*？
 * A: In the installation process, you can choose 'run on startup'. You can also manually make it (You can do it with Google).
+
