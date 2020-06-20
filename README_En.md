@@ -42,11 +42,11 @@ To trigger the start menu in the lower left corner like this:
 
 - [Download from github](https://github.com/misterchaos/hotcorner/releases)
 
-- [Download from gitee](https://gitee.com/misterchaos/hotcorner/releases/v1.6)
+- [Download from gitee](https://gitee.com/misterchaos/hotcorner/releases/v1.5)
 
 If you do not want to participate in the development, just download `hotcornerinstaller.exe` <br>
 
-If you are in China, I suggest you [Download from gitee](https://gitee.com/misterchaos/hotcorner/releases/v1.6)
+If you are in China, I suggest you [Download from gitee](https://gitee.com/misterchaos/hotcorner/releases/v1.5)
 
 ### Installing
 
