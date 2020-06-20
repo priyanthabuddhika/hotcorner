@@ -10,7 +10,7 @@ One handy feature on macOS is the *trigger Angle*. Through this function, you ca
 
 When the mouse moves to the upper left corner of the screen, it can automatically opens the Windows timeline (activities view) so that we can switch task quickly.
 
-![gif](https://camo.githubusercontent.com/84be7ffec877d3c396805fa1d26b7e06afbeb283/68747470733a2f2f696d67323032302e636e626c6f67732e636f6d2f626c6f672f313635343030372f3230323030362f313635343030372d32303230303631353232353732373733352d313535303038393534332e676966)
+![](https://img2020.cnblogs.com/blog/1654007/202006/1654007-20200620114341013-1239435561.gif)
 
 You can view the original version here:
 
