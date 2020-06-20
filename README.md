@@ -2,7 +2,7 @@
 
 ### 文档
 
-[English](https://github.com/misterchaos/hotcorner/README_En.md)|[中文](https://github.com/misterchaos/hotcorner/README.md)
+[English](https://github.com/misterchaos/hotcorner/blob/Yuchao-Huang/README_En.md)|[中文](https://github.com/misterchaos/hotcorner/blob/Yuchao-Huang/README.md)
 
 ### 简介
 
