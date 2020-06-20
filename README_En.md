@@ -6,14 +6,15 @@
 
 ### Introduction
 
-One handy feature on macOS is the "trigger Angle." Through this function, you can set the trigger event when the mouse moves to the four corners of the screen, such as triggering to start the activities view, display desktop or other functions.MacOS calls them "Hot Corners", in contrast to our usual hotkeys. This  "**HotCorner App **" is used to make Windows have like macOS trigger Angle, the GIF below shows how it works:
+One handy feature on macOS is the *trigger Angle*. Through this function, you can set the trigger event when the mouse moves to the four corners of the screen, such as triggering to start the activities view, display desktop or other functions.MacOS calls them *Hot Corners*, in contrast to our usual hotkeys. This *HotCorner App* is used to make Windows have like macOS trigger Angle, the GIF below shows how it works:
 
 When the mouse moves to the upper left corner of the screen, it can automatically opens the Windows timeline (activities view) so that we can switch task quickly.
-![](https://img2020.cnblogs.com/blog/1654007/202006/1654007-20200615230050152-1026624222.gif)
+
+![gif](https://camo.githubusercontent.com/84be7ffec877d3c396805fa1d26b7e06afbeb283/68747470733a2f2f696d67323032302e636e626c6f67732e636f6d2f626c6f672f313635343030372f3230323030362f313635343030372d32303230303631353232353732373733352d313535303038393534332e676966)
 
 You can view the original version here:
 
- [@Tavis Ormandy](https://github.com/taviso)-[hotcorner-Tiny Hot Corners for Windows 10](https://github.com/taviso/hotcorner)
+ [@Tavis Ormandy](https://github.com/taviso)-[hotcorner:Tiny Hot Corners for Windows 10](https://github.com/taviso/hotcorner)
 
 
 
