@@ -1,92 +1,94 @@
 # Tiny Hot Corners for Windows 10
 
-In GNOME 3 whenever you move the mouse to the top left corner, GNOME switches to the activities view, it looks like this:
+### Documents
 
- ![Gnome Activities](https://www.gnome.org/wp-content/uploads/2016/03/window-selection-3.20-420x236.png)
+[English](https://github.com/misterchaos/hotcorner/README_En.md)|[中文](https://github.com/misterchaos/hotcorner/README.md)
 
-Whenever I'm using Windows 10, I always forget that this doesn't work. Bleh.
+### Introduction
 
-I searched around for existing solutions, and wasn't happy with anything I could find.
+One handy feature on macOS is the "trigger Angle." Through this function, you can set the trigger event when the mouse moves to the four corners of the screen, such as triggering to start the activities view, display desktop or other functions.MacOS calls them "Hot Corners", in contrast to our usual hotkeys. This  "**HotCorner App **" is used to make Windows have like macOS trigger Angle, the GIF below shows how it works:
 
-The options seem to be
+When the mouse moves to the upper left corner of the screen, it can automatically opens the Windows timeline (activities view) so that we can switch task quickly.
+![](https://img2020.cnblogs.com/blog/1654007/202006/1654007-20200615230050152-1026624222.gif)
 
- * Some ridiculous AutoHotKey monstrosity (?!?).
- * Massive Delphi application with 100MB of resources.
- * Some naive program that polls GetCursorPos() in a busy loop.
+You can view the original version here:
 
-None of these are what I want, I just want that GNOME 3 thing with absolute minimal overhead.
+ [@Tavis Ormandy](https://github.com/taviso)-[hotcorner-Tiny Hot Corners for Windows 10](https://github.com/taviso/hotcorner)
 
-This is a **very** minimal hotcorner app, written in C. You can adjust parameters, delays, bindings easily and recompile.
 
-Zero state is stored anywhere, no registry keys or configuration files.
 
-- If you want to configure something, edit the code and recompile.
-- If you want to uninstall it, just delete it.
+Based on the original project, I made the following changes:
 
-## Instructions
+1. Add a trigger angle in the lower left corner to trigger the start menu
+2. Program Installer added
+3. Program icon added
+4. Enable run on startup
 
-Change any of the parameters, compile, then install.
+5. Chinese documents provided
 
-A binary is available [here](https://github.com/taviso/hotcorner/releases) if you prefer.
 
-### Building
 
-` > nmake`
+To trigger the start menu in the lower left corner like this:
+
+![](https://img2020.cnblogs.com/blog/1654007/202006/1654007-20200615225727735-1550089543.gif)
+
+
+### Functions
+
+- Trigger the activities view in the upper left corner
+- Trigger the start menu in the lower left corner
+
+### Download
+
+- [Download from github](https://github.com/misterchaos/hotcorner/releases)
+
+- [Download from gitee](https://gitee.com/misterchaos/hotcorner/releases/v1.6)
+
+If you do not want to participate in the development, just download `hotcornerinstaller.exe` <br>
+
+If you are in China, I suggest you [Download from gitee](https://gitee.com/misterchaos/hotcorner/releases/v1.6)
 
 ### Installing
 
-`> copy hotcorner.exe "%USERPROFILE%\Start Menu\Programs\Startup"`
-
-(or `nmake install`)
+After downloading `Hotcornerinstaller.exe` from the above download address, double-click on it to start the installation.![image-20200615203603094](http://nextcloud.hellochaos.cn/index.php/s/T6iLYN2FiS5FoJ7/preview)
 
 ### Uninstalling
 
- `> del "%USERPROFILE%\Start Menu\Programs\Startup\hotcorner.exe"`
-
-(or `nmake uninstall`)
-
-If you don't have cl or nmake, they come with Visual Studio (or the Windows SDK, I think).
-
-Additionally, it is possible to build hotcorner on Linux using MinGW.
-
- `$ x86_64-w64-mingw32-windres version.rc -O coff -o version.res`
- `$ x86_64-w64-mingw32-gcc -O2 hotcorner.c version.res -o hotcorner.exe -Wl,-subsystem,windows`
-
+Find the installation location of the software (default is C:\Program Files (x86)\HotCorner) and double-click 'unins000.exe' under the folder to complete the uninstallation.Stop the software before uninstalling (press Ctrl+Alt+C)
 
 ### Configuration
 
-All configuration requires modifying the parameters in `hotcorner.c` and recompiling.
+After the software installation is completed, it will be automatically added to the application list in the Start menu, where you can find HotCorner and click it to run the software in the background.If you are using screen zooming as shown in the figure, and the scale is not 100%, you need to do the following configuration
 
-* `RECT kHotcorner` - The coordinates of the hot zone.
-* `INPUT kCornerInput[]` - Input sent on activation.
-* `DWORD kHotKeyModifiers` - Modifier Keys (shift, alt, ctrl, etc) you want to enable the hotkey function.
-* `DWORD kHotDelay` - How long the pointer must wait in the corner before being activated.
+![image-20200615204923679](http://nextcloud.hellochaos.cn/index.php/s/6fCqMDKWgPdixYZ/preview)
 
-## License
+Under normal circumstances, the software can automatically obtain the height of the screen, but when the system uses a scaling of screen, can cause the software to get is not the real height of the screen, so you need to edit ` config. TXT ` file in the software installation path (the default is C: \ Program Files \ HotCorner (x86)) , write the actual height of the screen in this file and then restart the app.(The default value in 'config.txt' is 0, indicating that screen height is automatically obtained.)
 
-GPL3
+> **Press Ctrl+Alt+C to close the program during the software running**
 
-## Authors
+### License
+
+The code is open source using GPL3 protocol. If you need to use the code, please follow the relevant provisions of CPL3 protocol.
+
+### Authors
 
 * Tavis Ormandy [@taviso](https://github.com/taviso/) - Original Author
 * Ahmed Samy [@asamy](https://github.com/asamy) - HotKey support
+* Yuchao Huang [@misterchaos](https://github.com/misterchaos/) - Application Package
 
-## FAQ
+### FAQ
 
-* Q: I don't want to compile it, can't you just give me an exe? :(
-* A: Checkout the releases, [here](https://github.com/taviso/hotcorner/releases).
-
-
-* Q: Can you change a setting, and then compile it for me?
-* A: No.
+* Q: The top left corner of the screen triggers the timeline view, but the bottom right corner doesn't respond ?
+* A: You may have used screen zooming, check out the [configuration instructions](#Configuration)
 
 
-* Q: This doesn't work with my Application/Configuration/Whatever!
-* A: File an issue, if it's feasible to workaround I'll try.
+* Q: What should I do if I want to change the event triggered by the screen corner?
+* A:  you can download the source code to make changes, and then recompile.
 
 
-* Q: How do I turn it off without rebooting?
-* A: You can use CTRL+ALT+C to completely shut down the application.
+* Q: How can I close the software after it runs?
+* A: Press Ctrl+Alt+C to close the program during the software running
 
-* Q: Why doesn't it work if my current program is running as an Administrator?
-* A: [UIPI](https://en.wikipedia.org/wiki/User_Interface_Privilege_Isolation). I suppose you could "Run As Administrator" if it bothers you.
+
+* Q: How do I enable *run on startup*？
+* A: In the installation process, you can choose 'run on startup'. You can also manually make it (You can do it with Google).
