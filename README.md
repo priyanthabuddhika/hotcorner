@@ -44,7 +44,7 @@ Github地址：[下载地址](https://github.com/misterchaos/hotcorner/releases)
 
 从上述下载地址将`HotcornerInstaller.exe`下载下来之后，双击打开即可开始安装。
 
-![image-20200615203603094](http://nextcloud.hellochaos.cn/index.php/s/T6iLYN2FiS5FoJ7/preview)
+![image-20200615203603094](imgs/20201202113708)
 
 ### 卸载
 
@@ -54,7 +54,7 @@ Github地址：[下载地址](https://github.com/misterchaos/hotcorner/releases)
 
 软件安装完成之后会自动添加到开始菜单的应用列表中，在其中找到HotCorner，单击之后软件即可后台运行。如果你使用了如图所示的屏幕缩放，并且缩放比例不是100%时，则需要进行下面的配置
 
-![image-20200615204923679](http://nextcloud.hellochaos.cn/index.php/s/6fCqMDKWgPdixYZ/preview)
+![image-20200615204923679](imgs/20201202113738)
 
 正常情况下，软件可以自动获取屏幕的高度，但是在系统使用屏幕缩放时，会导致软件获取到的不是屏幕的真实高度，因此你需要编辑软件安装路径（默认是C:\Program Files (x86)\HotCorner）下的`config.txt`文件，在这个文件中写入屏幕的真实高度，例如图中的屏幕真实高度为1080（无单位），然后重启软件。（`config.txt`中的默认值是0，表示自动获取屏幕高度。）
 
