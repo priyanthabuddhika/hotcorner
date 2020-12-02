@@ -10,7 +10,7 @@ macOS上有一个很方便的功能：“触发角”。通过这个功能可以
 
 当鼠标移动到屏幕的左上角时，自动打开Windows的时间轴试图，实现快捷切换任务。
 
-![](imgs/1654007-20200620120118440-1483713639.gif)
+![hotcorner](imgs/hotcorner.gif)
 
 这个程序来源于一个国外大神（[Google](http://www.google.com/)的信息安全工程师）[Tavis Ormandy](https://github.com/taviso) 的一个小项目 [hotcorner](https://github.com/taviso/hotcorner)，他创作这个项目是因为习惯于一款Linux操作系统桌面：GNOME 3，这款桌面可以在鼠标移动到左上角时触发任务视图。他发现每当自己使用Windows 10时，总是会忘记Windows中并没有这个功能，四处寻找替代软件都无法令他满意，因此自己用C语言手撸了一个小程序来实现这个功能。但这个小程序只有一个功能：屏幕左上角触发Windows时间轴视图。并且软件的安装，卸载都需要通过命令行或者手动实现，十分不方便。
 
