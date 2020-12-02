@@ -27,7 +27,7 @@ Based on the original project, I made the following changes:
 
 To trigger the start menu in the lower left corner like this:
 
-![](https://img2020.cnblogs.com/blog/1654007/202006/1654007-20200615225727735-1550089543.gif)
+![](imgs/1654007-20200615225727735-1550089543.gif)
 
 
 ### Functions
