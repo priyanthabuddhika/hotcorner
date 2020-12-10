@@ -4,7 +4,7 @@
 
 [English](https://github.com/misterchaos/hotcorner/blob/Yuchao-Huang/README_En.md)|[中文](https://github.com/misterchaos/hotcorner/blob/Yuchao-Huang/README.md)
 
-[![Stargazers over time](imgs/hotcorner.svg)](https://starchart.cc/misterchaos/hotcorner)
+[![Stargazers over time](https://starchart.cc/misterchaos/hotcorner.svg)](https://starchart.cc/misterchaos/hotcorner)
 
 ### Introduction
 
