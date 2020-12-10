@@ -4,6 +4,8 @@
 
 [English](https://github.com/misterchaos/hotcorner/blob/Yuchao-Huang/README_En.md)|[中文](https://github.com/misterchaos/hotcorner/blob/Yuchao-Huang/README.md)
 
+[![Stargazers over time](imgs/hotcorner.svg)](https://starchart.cc/misterchaos/hotcorner)
+
 ### Introduction
 
 One handy feature on macOS is the *trigger Angle*. Through this function, you can set the trigger event when the mouse moves to the four corners of the screen, such as triggering to start the activities view, display desktop or other functions.MacOS calls them *Hot Corners*, in contrast to our usual hotkeys. This *HotCorner App* is used to make Windows have like macOS trigger Angle, the GIF below shows how it works:
