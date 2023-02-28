@@ -33,6 +33,8 @@ static const RECT kHotCorner_topleft = {
 
 static RECT kHotCorner_downleft;
 
+static RECT kHotCorner_downRight;
+
 // Input to inject when corner activated (Win+Tab by default).
 static const INPUT kCornerInput_topleft[] = {
     {INPUT_KEYBOARD, .ki = {VK_LWIN, .dwFlags = 0}},
@@ -42,12 +44,25 @@ static const INPUT kCornerInput_topleft[] = {
 };
 
 static const INPUT kCornerInput_downleft[] = {
+    {INPUT_KEYBOARD, .ki = {VK_LCONTROL, .dwFlags = 0}},
     {INPUT_KEYBOARD, .ki = {VK_LWIN, .dwFlags = 0}},
+    {INPUT_KEYBOARD, .ki = {VK_LEFT, .dwFlags = 0}},
+    {INPUT_KEYBOARD, .ki = {VK_LCONTROL, .dwFlags = KEYEVENTF_KEYUP}},
     {INPUT_KEYBOARD, .ki = {VK_LWIN, .dwFlags = KEYEVENTF_KEYUP}},
+    {INPUT_KEYBOARD, .ki = {VK_LEFT, .dwFlags = KEYEVENTF_KEYUP}},
+};
+
+static const INPUT kCornerInput_downRight[] = {
+    {INPUT_KEYBOARD, .ki = {VK_LCONTROL, .dwFlags = 0}},
+    {INPUT_KEYBOARD, .ki = {VK_LWIN, .dwFlags = 0}},
+    {INPUT_KEYBOARD, .ki = {VK_RIGHT, .dwFlags = 0}},
+    {INPUT_KEYBOARD, .ki = {VK_LCONTROL, .dwFlags = KEYEVENTF_KEYUP}},
+    {INPUT_KEYBOARD, .ki = {VK_LWIN, .dwFlags = KEYEVENTF_KEYUP}},
+    {INPUT_KEYBOARD, .ki = {VK_RIGHT, .dwFlags = KEYEVENTF_KEYUP}},
 };
 
 // activeHotCorner will be kCornerInput_topleft or kCornerInput_downleft
-static INPUT** activekCornerInput;
+static INPUT **activekCornerInput;
 
 // How long cursor has to linger in the kHotCorner RECT to trigger input.
 static const DWORD kHotDelay = 300;
@@ -140,15 +155,54 @@ static DWORD WINAPI CornerHotFunc_DownLeft(LPVOID lpParameter)
     return 0;
 }
 
+// This thread runs when the cursor enters the hot corner, and waits to see if the cursor stays in the corner.
+// If the mouse leaves while we're waiting, the thread is just terminated.
+static DWORD WINAPI CornerHotFunc_DownRight(LPVOID lpParameter)
+{
+    BYTE KeyState[256];
+    POINT Point;
+
+    Sleep(10);
+
+    // Check if a mouse button is pressed, maybe a drag operation?
+    if (GetKeyState(VK_LBUTTON) < 0 || GetKeyState(VK_RBUTTON) < 0)
+    {
+        return 0;
+    }
+
+    // Check if any modifier keys are pressed.
+    if (GetKeyboardState(KeyState))
+    {
+        if (KEYDOWN(KeyState[VK_SHIFT]) || KEYDOWN(KeyState[VK_CONTROL]) || KEYDOWN(KeyState[VK_MENU]) || KEYDOWN(KeyState[VK_LWIN]) || KEYDOWN(KeyState[VK_RWIN]))
+        {
+            return 0;
+        }
+    }
+
+    // Verify the corner is still hot
+    if (GetCursorPos(&Point) == FALSE)
+    {
+        return 1;
+    }
+
+#pragma warning(suppress : 4090)
+    if (SendInput(_countof(kCornerInput_downRight), kCornerInput_downRight, sizeof(INPUT)) != _countof(kCornerInput_downRight))
+    {
+        return 1;
+    }
+
+    return 0;
+}
+
 static LRESULT CALLBACK MouseHookCallback(int nCode, WPARAM wParam, LPARAM lParam)
 {
-    MSLLHOOKSTRUCT* evt = (MSLLHOOKSTRUCT*)lParam;
+    MSLLHOOKSTRUCT *evt = (MSLLHOOKSTRUCT *)lParam;
     // If the mouse hasn't moved, we're done.
     if (wParam != WM_MOUSEMOVE)
         goto finish;
 
     // Check if the cursor is hot or cold.
-    if (!(PtInRect(&kHotCorner_topleft, evt->pt) || PtInRect(&kHotCorner_downleft, evt->pt)))
+    if (!(PtInRect(&kHotCorner_topleft, evt->pt) || PtInRect(&kHotCorner_downleft, evt->pt) || PtInRect(&kHotCorner_downRight, evt->pt)))
     {
 
         // The corner is cold, and was cold before.
@@ -172,34 +226,43 @@ static LRESULT CALLBACK MouseHookCallback(int nCode, WPARAM wParam, LPARAM lPara
         goto finish;
     }
 
-    // Check if a mouse putton is pressed, maybe a drag operation?
+    // Check if a mouse button is pressed, maybe a drag operation?
     if (GetKeyState(VK_LBUTTON) < 0 || GetKeyState(VK_RBUTTON) < 0)
     {
         goto finish;
     }
 
-    //select activekCornerInput
+    // select activekCornerInput
     if (PtInRect(&kHotCorner_topleft, evt->pt))
     {
         // The corner is hot, and was previously cold. Here we start a thread to
         // monitor if the mouse lingers.
+        printf("top left activated\n");
         CornerThread = CreateThread(NULL, 0, CornerHotFunc_TopLeft, NULL, 0, NULL);
     }
     else if (PtInRect(&kHotCorner_downleft, evt->pt))
     {
         // The corner is hot, and was previously cold. Here we start a thread to
         // monitor if the mouse lingers.
+        printf("down left activated\n");
         CornerThread = CreateThread(NULL, 0, CornerHotFunc_DownLeft, NULL, 0, NULL);
+    }
+    else if (PtInRect(&kHotCorner_downRight, evt->pt))
+    {
+        // The corner is hot, and was previously cold. Here we start a thread to
+        // monitor if the mouse lingers.
+        printf("down right activated\n");
+        CornerThread = CreateThread(NULL, 0, CornerHotFunc_DownRight, NULL, 0, NULL);
     }
 
 finish:
     return CallNextHookEx(NULL, nCode, wParam, lParam);
 }
 
-int getConfig()
+int getConfigY()
 {
-    FILE* fp;
-    fp = fopen(".\\config.txt", "r");
+    FILE *fp;
+    fp = fopen(".\\configy.txt", "r");
     if (fp == NULL)
     {
         return GetSystemMetrics(SM_CYSCREEN);
@@ -214,19 +277,48 @@ int getConfig()
     return screenY;
 }
 
+int getConfigX()
+{
+    FILE *fp;
+    fp = fopen(".\\configx.txt", "r");
+    if (fp == NULL)
+    {
+        return GetSystemMetrics(SM_CXSCREEN);
+    }
+    int screenX;
+    fscanf(fp, "%d", &screenX);
+    printf("x = %d", screenX);
+    fclose(fp);
+    if (screenX <= 0)
+    {
+        printf("te %d", GetSystemMetrics(SM_CXSCREEN));
+        return GetSystemMetrics(SM_CXSCREEN);
+    }
+    return screenX;
+}
+
 int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
     MSG Msg;
     HHOOK MouseHook;
 
-    // get screen  size
+    // get screen  size y
 
-    kHotCorner_downleft.bottom = getConfig();
+    kHotCorner_downleft.bottom = getConfigY();
 
     kHotCorner_downleft.top = kHotCorner_downleft.bottom - 20;
     kHotCorner_downleft.bottom += 20;
     kHotCorner_downleft.left = -20;
     kHotCorner_downleft.right = +20;
+
+    // get screen  size x
+
+    kHotCorner_downRight.bottom = getConfigY();
+
+    kHotCorner_downRight.top = kHotCorner_downRight.bottom - 20;
+    kHotCorner_downRight.bottom += 20;
+    kHotCorner_downRight.left = getConfigX() - 20;
+    kHotCorner_downRight.right = getConfigX() + 20;
 
     if (!(MouseHook = SetWindowsHookEx(WH_MOUSE_LL, MouseHookCallback, NULL, 0)))
         return 1;
